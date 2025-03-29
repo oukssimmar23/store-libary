@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>قائمة الكتب</title>
+</head>
+<body class="container mt-5 text-end">
+    <div class="text-center">
+        <h1 class="mb-4">📚 قائمة الكتب</h1>
+    </div>
+    
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>الإجراءات</th>
+                <th>السعر (DH)</th>
+                <th>التقييم</th>
+                <th>العدد</th>
+                <th>المؤلف</th>
+                <th>العنوان</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for(let livre of alllivres) { %>
+            <tr class="text-center">
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="supprimerLivre('<%= livre._id %>')">🗑 حذف</button>
+                    <button class="btn btn-warning btn-sm" onclick="modifierLivre('<%= livre._id %>')">✏️ تعديل</button>
+                </td>
+                <td><%= livre.prix %> DH</td>
+                <td><%= livre.evaluation %>/10 ⭐</td>
+                <td><%= livre.count %></td>
+                <td><%= livre.auteur %></td>
+                <td><%= livre.title %></td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <button class="btn btn-success btn-lg" onclick="ajouterLivre()">➕ إضافة كتاب</button>
+    </div>
+
+    <script>
+        // حذف كتاب
+        async function supprimerLivre(id) {
+            if (confirm("هل أنت متأكد من حذف هذا الكتاب؟")) {
+                try {
+                    const response = await fetch(`/api/livre/${id}`, { method: "DELETE" });
+                    if (response.ok) {
+                        alert("✅ تم حذف الكتاب بنجاح!");
+                        location.reload();
+                    } else {
+                        alert("❌ حدث خطأ أثناء الحذف!");
+                    }
+                } catch (error) {
+                    console.error("Erreur de suppression:", error);
+                    alert("⚠️ فشل الاتصال بالخادم!");
+                }
+            }
+        }
+
+        // تعديل كتاب
+        async function modifierLivre(id) {
+            const newTitle = prompt("📖 أدخل العنوان الجديد:");
+            const newAuteur = prompt("✍️ أدخل اسم المؤلف:");
+            const newCategorie = prompt("📚 أدخل نوع الكتاب:");
+            const newEvaluation = prompt("⭐ أدخل تقييم الكتاب (من 10):");
+            const newPrix = prompt("💰 أدخل السعر الجديد (DH):");
+            const newDescription = prompt("📝 أدخل وصف الكتاب:");
+            const newCount = prompt("🔢 أدخل عدد النسخ المتوفرة:");
+            const newImage = prompt("🖼 أدخل رابط صورة الكتاب:");
+
+            if (newTitle && newPrix) {
+                try {
+                    const response = await fetch(`/api/livre/${id}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            title: newTitle, 
+                            auteur: newAuteur,
+                            categorie: newCategorie, 
+                            evaluation: Number(newEvaluation), 
+                            prix: Number(newPrix), 
+                            description: newDescription, 
+                            count: Number(newCount), 
+                            image: newImage 
+                        })
+                    });
+
+                    if (response.ok) {
+                        alert("✅ تم تعديل الكتاب بنجاح!");
+                        location.reload();
+                    } else {
+                        alert("❌ حدث خطأ أثناء التعديل!");
+                    }
+                } catch (error) {
+                    console.error("Erreur de modification:", error);
+                    alert("⚠️ فشل تعديل الكتاب!");
+                }
+            }
+        }
+
+        // إضافة كتاب جديد
+        async function ajouterLivre() {
+            const newid=prompt("entrer id")
+            const newTitle = prompt("📖 أدخل العنوان الجديد:");
+            const newAuteur = prompt("✍️ أدخل اسم المؤلف:");
+            const newCategorie = prompt("📚 أدخل نوع الكتاب:");
+            const newEvaluation = prompt("⭐ أدخل تقييم الكتاب (من 10):");
+            const newPrix = prompt("💰 أدخل السعر الجديد (DH):");
+            const newDescription = prompt("📝 أدخل وصف الكتاب:");
+            const newCount = prompt("🔢 أدخل عدد النسخ المتوفرة:");
+            const newImage = prompt("🖼 أدخل رابط صورة الكتاب:");
+
+            if (newTitle && newPrix) {
+                try {
+                    const response = await fetch("/api/livres", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ 
+                            id:Number(newid),
+                            title: newTitle, 
+                            auteur: newAuteur,
+                            categorie: newCategorie, 
+                            evaluation: Number(newEvaluation), 
+                            prix: Number(newPrix), 
+                            description: newDescription, 
+                            count: Number(newCount), 
+                            image: newImage 
+                        })
+                    });
+
+                    if (response.ok) {
+                        alert("✅ تمت إضافة الكتاب بنجاح!");
+                        location.reload();
+                    } else {
+                        alert("❌ حدث خطأ أثناء الإضافة!");
+                    }
+                } catch (error) {
+                    console.error("Erreur d'ajout:", error);
+                    alert("⚠️ فشل الاتصال بالخادم!");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
