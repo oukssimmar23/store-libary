@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marouane Oukssim</title>
+    <title>Administrateurs</title>
 </head>
 <body>
-    <h1>HELLO</h1>
+    <h1>Liste des Administrateurs</h1>
 
-    <% if (admins.length > 0) { %>
-        <% for (let admin of admins) { %>
-            <img src="<%= admin.image %>">
+    <% if (alladmin.length > 0) { %>
+        <% for (let admin of alladmin) { %>
             <div style="border: 1px solid black; padding: 10px; margin: 10px; width: fit-content;">
                 <h2>Prénom: <%= admin.prenom %></h2>
                 <h2>Nom: <%= admin.nom %></h2>
-                <button>gerer des livres</button>
-                <button>gerer des commandes</button>
-                <button>gerer des utiliasateur </button>
+
+                <a href="/showcommande" style="display: inline-block; padding: 8px 12px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; margin-right: 5px;">Gérer des commandes</a>
+
+                <a href="/showlivre" style="display: inline-block; padding: 8px 12px; background-color: #2196F3; color: white; text-decoration: none; border-radius: 5px;">Gérer des livres</a>
+                
             </div>
         <% } %>
     <% } else { %>
         <p>Aucun administrateur trouvé.</p>
     <% } %>
-    
-
 </body>
 </html>
+
 

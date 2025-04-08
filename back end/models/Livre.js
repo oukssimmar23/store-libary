@@ -1,15 +1,25 @@
-const mongoose=require("mongoose")
-const schema=mongoose.Schema
-const schemalivre=new schema({
-    title:String,
-    auteur:String,
-    categorie:String,
-    agecible:String,
-    evaluation:Number,
-    prix:Number,
-    description:String,
-    image:String
+const mongoose = require("mongoose");
 
-})
-const Livre=mongoose.model("livre",schemalivre)
-module.exports=Livre
+const livreSchema = new mongoose.Schema({
+  title: String,
+  auteur: String,
+  categorie: String,
+  evaluation: Number,
+  prix: Number,
+  description: String,
+  count: Number, // يمكن تحيدها إلى stock فقط لتفادي التكرار
+  stock: {
+    type: Number,
+    required: true,
+    default: 0
+  },
+  image: String,
+  anneePublication: Number,
+  nombrePages: Number,
+  langue: String,
+  etat: String,
+  isbn: String
+});
+
+const Livre = mongoose.model("Livre", livreSchema);
+module.exports = Livre;

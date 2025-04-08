@@ -1,87 +1,59 @@
+// Histoire.jsx
 import { Link } from "react-router-dom";
+import Header from "../pageaccueil/Header";
+import "./Histoire.css";
 
-export default function Histoire({ livres = [] }) {
-    const filterhistoire = Array.isArray(livres)
-        ? livres.filter(livre => livre.categorie === "histoire").slice(-5)
-        : [];
+export default function HistoryBooks({ livres = [] }) {
+  const historicalBooks = livres.filter(livre => livre.categorie === "histoire");
 
-    if (filterhistoire.length === 0) {
-        return <h1>Aucun livre d'histoire disponible</h1>;
-    }
+  return (
+    <div className="historical-page">
+      <Header />
+      
+      <section className="antique-section">
+        <div className="container">
+          <div className="section-header">
+            <h2 className="section-title">
+             كتب التاريخ
+              <span className="badge-vintage">تراث</span>
+            </h2>
+          </div>
 
-    return (
-        <fieldset style={{ 
-            border: "2px solid #ff5722", 
-            padding: "20px", 
-            borderRadius: "10px", 
-            backgroundColor: "#121212", 
-            color: "white", 
-            textAlign: "right" 
-        }}>
-            <legend style={{ 
-                fontSize: "20px", 
-                fontWeight: "bold", 
-                color: "#ff5722", 
-                float: "right", 
-                padding: "0 10px" 
-            }}>
-                📖 كتب التاريخ
-            </legend>
-            
-            <div style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap', 
-                gap: '15px', 
-                justifyContent: 'center', 
-                marginTop: "30px" 
-            }}>
-                {filterhistoire.map(livre => (
-                    <div key={livre.id} style={{ 
-                        width: '120px', 
-                        border: '1px solid #ff5722', 
-                        borderRadius: '10px', 
-                        padding: '10px', 
-                        textAlign: 'center', 
-                        backgroundColor: "#1e1e1e" 
-                    }}>
-                        <img 
-                            src={livre.image} 
-                            alt={livre.title} 
-                            style={{ 
-                                width: '100px', 
-                                height: '130px', 
-                                objectFit: 'cover', 
-                                borderRadius: '5px', 
-                                backgroundColor: "white" 
-                            }} 
-                        />
-                        <h1 style={{ fontSize: '12px', margin: '5px 0' }}>{livre.title}</h1>
-                        <p style={{ fontSize: '10px', color: '#bbb' }}>{livre.prix} DH</p>
-                        
-                        <button style={{ 
-                            backgroundColor: '#ff5722', 
-                            color: 'white', 
-                            border: 'none', 
-                            padding: '5px', 
-                            fontSize: "10px", 
-                            borderRadius: '5px', 
-                            cursor: 'pointer' 
-                        }}>
-                            Ajouter au panier
-                        </button>
-                        
-                        <Link to={`/details/${livre.id}`} style={{ 
-                            display: 'block', 
-                            marginTop: '5px', 
-                            fontSize: "10px", 
-                            textDecoration: 'none', 
-                            color: '#ff5722' 
-                        }}>
-                            Voir les détails
-                        </Link>
+          <div className="row">
+            {historicalBooks.map(livre => (
+              <div key={livre.id} className="col-item">
+                <div className="antique-card">
+                  <Link to={`/details/${livre.id}`} className="card-link">
+                    <div className="image-container">
+                      <img 
+                        src={livre.image} 
+                        alt={livre.title}
+                        className="antique-image"
+                      />
+                      <div className="time-period">{livre.period}</div>
                     </div>
-                ))}
-            </div>
-        </fieldset>
-    );
+                    
+                    <div className="content-overlay">
+                      <h3 className="book-title">{livre.title}</h3>
+                      <div className="price-rating">
+                        <span className="price-tag">{livre.prix} DH</span>
+                        <div className="stars">
+                          {[...Array(Math.floor(livre.evaluation))].map((_, i) => (
+                            <i key={i} className="star-icon">★</i>
+                          ))}
+                        </div>
+                      </div>
+                      <button className="explore-btn">
+                        استكشف المخطوطة
+                      </button>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }

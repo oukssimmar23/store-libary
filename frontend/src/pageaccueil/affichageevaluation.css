@@ -1,0 +1,168 @@
+/* Section de l'évaluation */
+.premium-evaluation-section {
+    padding: 4rem 2rem;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+  }
+  
+  /* En-tête de la section */
+  .section-header {
+    text-align: right;
+    margin-bottom: 3rem;
+  }
+  
+  .section-heading {
+    font-size: 2.5rem;
+    position: relative;
+    color: #fff;
+  }
+  
+  .section-title {
+    background: linear-gradient(to right, #d084f9, #ffb3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    display: inline-block;
+  }
+  
+  /* Grille des livres */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+  }
+  
+  /* Carte du livre */
+  /* Carte du livre */
+  .novel-card {
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    width: 100%; /* Définir la largeur à 100% pour occuper toute la largeur disponible */
+    max-width: 250px; /* Définir une largeur maximale pour garder les cartes cohérentes */
+    height: 450px; /* Ajuster la hauteur de la carte selon le design */
+    margin: 0 auto; /* Centrer les cartes */
+    background-size: cover; /* Assure que l'image couvre toute la surface de la carte */
+    background-position: center; /* Centre l'image pour un meilleur rendu */
+  }
+  
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    height: 300px;
+    width: 100%; /* Définit la largeur de l'image à 100% pour occuper toute la largeur de la carte */
+  }
+  
+  .image-wrapper img {
+    position: relative;
+    border-radius: 20px;
+    height: 400px; /* Garantir que l'image couvre toute la hauteur de l'élément */
+    width: 300px; /* Garantir que l'image couvre toute la largeur de l'élément */
+    object-fit: cover; /* Garantir que l'image couvre la zone sans déformation */
+    transform: translateY(-350px) translateX(-30px);
+  
+  }
+  
+  
+  /* Survol sur la carte */
+
+
+  
+  /* Hover sur la carte */
+  .novel-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Wrapper de l'image */
+
+  /* Effet zoom sur l'image */
+  .novel-cover {
+    width: 100%;
+    height: 100%; /* 100% pour occuper toute la hauteur de l'image */
+    object-fit: cover; /* Garantit que l'image couvre l'ensemble de la zone sans déformation */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Survol de l'image */
+  .image-wrapper:hover .novel-cover {
+    transform: scale(1.1); /* Zoom effet */
+  }
+  
+  /* Contenu en surimpression (Titre, Prix, Évaluation) */
+  .content-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Fond sombre */
+    display: flex;
+    flex-direction: column; /* Changement vers colonne */
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    padding: 10px;
+    border-radius: 15px;
+  }
+  
+  /* Affichage du contenu au survol */
+  .image-wrapper:hover .content-overlay {
+    opacity: 1; /* Rendre l'overlay visible */
+  }
+  
+  /* Titre du livre */
+  .content-overlay h4 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #ffd700; /* Couleur dorée pour le titre */
+  }
+  
+  /* Détails du prix et évaluation */
+  .info-box {
+    display: block; /* Changement vers un affichage en bloc */
+    width: 100%;
+    text-align: center; /* Centrer le contenu */
+  }
+  
+  .price-tag, .rating-badge {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #fff;
+    margin-top: 5px; /* Espacement entre les éléments */
+  }
+  
+  .rating-badge {
+    background: rgba(255, 223, 51, 0.7); /* Couleur dorée pour la notation */
+  }
+  
+  /* Icône de la carte et localisation */
+  .map-icon-wrapper {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #ffd6ff;
+    gap: 8px;
+  }
+  
+  .map-icon {
+    font-size: 1.2rem;
+  }
+  
+  /* Message quand aucun livre n'est trouvé */
+  .no-books-message {
+    text-align: center;
+    padding: 5rem 1rem;
+    font-size: 1.5rem;
+    color: #bbb;
+  }
+  

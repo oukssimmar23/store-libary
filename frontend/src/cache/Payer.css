@@ -1,0 +1,62 @@
+.payer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Pour centrer verticalement */
+    padding: 20px;
+  }
+  
+  .payer-box {
+    width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre autour du card */
+    border: 1px solid #ddd; /* Bordure légère */
+  }
+  
+  h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  button {
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  

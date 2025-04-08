@@ -1,0 +1,127 @@
+
+:root {
+  --primary-color: #2A5C82;
+  --accent-color: #E76F51;
+  --text-dark: #2c3e50;
+  --gradient-overlay: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+}
+
+.books-section {
+  padding: 6rem 0;
+ 
+}
+
+.section-heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  position: relative;
+  color: var(--text-dark);
+}
+
+.with-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  width: 120px;
+  height: 4px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.book-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+.hover-transform:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.card-image-wrapper {
+  position: relative;
+  padding-top: 120%;
+  overflow: hidden;
+}
+
+.book-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--gradient-overlay);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.book-card:hover .card-overlay {
+  opacity: 1;
+}
+
+.content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem;
+  color: white;
+}
+
+.price-badge {
+  background: var(--accent-color);
+  padding: 0.5rem 1.2rem;
+  border-radius: 30px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.rating-stars {
+  color: #FFD700;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 1rem 2.5rem;
+  margin-top: 40px;
+  background: var(--primary-color);
+  color: white !important;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none !important;
+}
+
+.cta-button:hover {
+  background: var(--accent-color);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .section-heading {
+    font-size: 2.2rem;
+  }
+  
+  .book-card {
+    margin-bottom: 2rem;
+  }
+}

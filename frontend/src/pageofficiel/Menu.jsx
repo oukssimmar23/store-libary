@@ -1,84 +1,75 @@
-
+// Menu.jsx
 import { Link } from 'react-router-dom';
+import { Container, Row, Col, Card, Button, Badge } from 'react-bootstrap';
+import Header from '../pageaccueil/Header';
+import "./Menu.css";
 
 export default function Menu({ livres = [] }) {
-    if (livres.length === 0) {
-        return <h1>Aucun livre disponible</h1>;
-    }
+  return (
+    <div className="digital-library">
+      <Header />
+      
+      <section className="premium-book-section py-6">
+        <Container>
+          <Row className="mb-5">
+            <Col>
+              <h2 className="section-heading with-underline"style={{textAlign:"center"}}>
+              <Badge bg="warning" className="ms-3"style={{textAlign:"center"}}>أحدث الإصدارات</Badge>
+                📚 مكتبتنا المميزة
+                
+              </h2>
+            </Col>
+          </Row>
 
-    return (
-        <fieldset style={{ 
-            border: "2px solid #ff5722", 
-            padding: "20px", 
-            borderRadius: "10px", 
-            backgroundColor: "#121212", 
-            color: "white", 
-            textAlign: "right" 
-        }}>
-            <legend style={{ 
-                fontSize: "20px", 
-                fontWeight: "bold", 
-                color: "#ff5722", 
-                float: "right", 
-                padding: "0 10px" 
-            }}>
-                📚 قائمة الكتب
-            </legend>
-            
-            <div style={{ 
-                display: 'flex', 
-                flexWrap: 'wrap', 
-                gap: '15px', 
-                justifyContent: 'center', 
-                marginTop: "30px" 
-            }}>
-                {livres.map(livre => (
-                    <div key={livre.id} style={{ 
-                        width: '120px', 
-                        border: '1px solid #ff5722', 
-                        borderRadius: '10px', 
-                        padding: '10px', 
-                        textAlign: 'center', 
-                        backgroundColor: "#1e1e1e" 
-                    }}>
-                        <img 
-                            src={livre.image} 
-                            alt={livre.title} 
-                            style={{ 
-                                width: '100px', 
-                                height: '130px', 
-                                objectFit: 'cover', 
-                                borderRadius: '5px', 
-                                backgroundColor: "white" 
-                            }} 
-                        />
-                        <h1 style={{ fontSize: '12px', margin: '5px 0' }}>{livre.title}</h1>
-                        <p style={{ fontSize: '10px', color: '#bbb' }}>{livre.prix} DH</p>
-                        
-                        <button style={{ 
-                            backgroundColor: '#ff5722', 
-                            color: 'white', 
-                            border: 'none', 
-                            padding: '5px', 
-                            fontSize: "10px", 
-                            borderRadius: '5px', 
-                            cursor: 'pointer' 
-                        }}>
-                            Ajouter au panier
-                        </button>
-                        
-                        <Link to={`/details/${livre.id}`} style={{ 
-                            display: 'block', 
-                            marginTop: '5px', 
-                            fontSize: "10px", 
-                            textDecoration: 'none', 
-                            color: '#ff5722' 
-                        }}>
-                            Voir les détails
-                        </Link>
-                    </div>
-                ))}
+          {livres.length === 0 ? (
+            <div className="no-books-message text-center py-5">
+              <h3 className="text-muted mb-4">📖 لا توجد كتب متاحة حالياً</h3>
+              <Button variant="outline-warning" size="lg">
+                تصفح التصنيفات
+              </Button>
             </div>
-        </fieldset>
-    );
+          ) : (
+            <Row xs={1} md={2} lg={3} xl={4} className="g-5">
+              {livres.map(livre => (
+                <Col key={livre.id} className="mb-4">
+                  <Card className="premium-card hover-glow">
+                    <Link to={`/details/${livre.id}`} className="stretched-link">
+                      <div className="image-wrapper">
+                        <Card.Img 
+                          variant="top" 
+                          src={livre.image} 
+                          alt={livre.title}
+                          className="premium-cover"
+                        />
+                        <div className="content-overlay">
+                          <Card.Body className="d-flex flex-column">
+                            <Card.Title className="text-light mb-3">
+                              {livre.title}
+                            </Card.Title>
+                            <div className="mt-auto">
+                              <Badge bg="light" text="dark" className="price-tag">
+                                {livre.prix} DH
+                              </Badge>
+                              <Button 
+                                variant="warning" 
+                                size="sm" 
+                                className="mt-3 explore-btn"
+                              >
+                                اطلع على التفاصيل
+                                <i className="bi bi-arrow-left ms-2"></i>
+                              </Button>
+                            </div>
+                          </Card.Body>
+                        </div>
+                      </div>
+                    </Link>
+                  </Card>
+                </Col>
+              ))}
+            </Row>
+          )}
+        </Container>
+      </section>
+    </div>
+  );
 }

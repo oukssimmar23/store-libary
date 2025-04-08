@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>قائمة الطلبات</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <hr class="my-5">
+
+    <div class="text-center">
+        <h1 class="mb-4">📦 قائمة الطلبات</h1>
+    </div>
+    
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>الإجراءات</th>
+                <th>تاريخ الطلب</th>
+                <th>العنوان</th>
+                <th>المجموع (DH)</th>
+                <th>الكتب المطلوبة</th>
+                <th>البريد الالكتروني</th>
+                <th>اسم المستخدم</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (let commande of allcommandes) { %>
+            <tr class="text-center">
+             
+                  
+                
+                
+                <td> <button class="btn btn-danger btn-sm" onclick="supprimerLivre('<%= commande._id %>')">🗑 حذف</button></td>
+                <td><%= new Date(commande.dateCommande).toLocaleString("ar-MA") %></td>
+                <td><%= commande.adresse %></td>
+                <td><%= commande.total %> DH</td>
+                <td>
+                    <ul class="list-unstyled">
+                        <% for (let item of commande.livres) { %>
+                            <li><%= item.livre.title %> (x<%= item.quantite %>)</li>
+                        <% } %>
+                    </ul>
+                </td>
+                <td>
+                    <% if (commande.utilisateur) { %>
+                      <%= commande.utilisateur.email %>
+                    <% } else { %>
+                      مستخدم غير معروف
+                    <% } %>
+                  </td>
+                  
+                <td>
+                    <% if (commande.utilisateur) { %>
+                      <%= commande.utilisateur.nom %> <%= commande.utilisateur.prenom %>
+                    <% } else { %>
+                      مستخدم غير معروف
+                    <% } %>
+                  </td>
+                 
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+    <script>
+        async function supprimerLivre(id) {
+            if (confirm("هل أنت متأكد من حذف هذا الكتاب؟")) {
+                try {
+                    const response = await fetch(`/api/commande/${id}`, { method: "DELETE" });
+                    if (response.ok) {
+                        alert("✅ تم حذف طلب بنجاح!");
+                        location.reload();
+                    } else {
+                        alert("❌ حدث خطأ أثناء الحذف!");
+                    }
+                } catch (error) {
+                    console.error("Erreur de suppression:", error);
+                    alert("⚠️ فشل الاتصال بالخادم!");
+                }
+            }
+        }
+    </script>
+</body>
+</html>

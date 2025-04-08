@@ -1,0 +1,118 @@
+/* SearchTheme.css */
+:root {
+  --primary-color: #2A5C82;
+  --accent-color: #E76F51;
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.search-page {
+  background: linear-gradient(to bottom, #f8f9fa, #ffffff);
+  min-height: 100vh;
+}
+
+.search-box-wrapper {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.search-input {
+  border-radius: 50px;
+  padding: 1.25rem 2rem;
+  font-size: 1.1rem;
+  border: 2px solid var(--primary-color);
+  transition: var(--transition);
+}
+
+.search-input:focus {
+  box-shadow: 0 0 15px rgba(42, 92, 130, 0.2);
+  border-color: var(--accent-color);
+}
+
+.search-icon {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary-color);
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.results-heading {
+  font-family: 'Tajawal', sans-serif;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+}
+
+.book-image {
+  height: 300px;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.book-card:hover .book-image {
+  transform: scale(1.05);
+}
+
+.book-title {
+  font-weight: 700;
+  color: var(--primary-color);
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.details-btn {
+  border-radius: 8px;
+  padding: 0.75rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.details-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(42, 92, 130, 0.3);
+}
+
+.no-results {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+}
+
+@media (max-width: 768px) {
+  .search-input {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .book-image {
+    height: 250px;
+  }
+  
+  .results-heading {
+    font-size: 1.5rem;
+  }
+}

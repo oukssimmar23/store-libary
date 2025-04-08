@@ -1,34 +1,54 @@
 import { Link } from "react-router-dom";
+import "./affichageevaluation.css";
 
-export default function Affichageevaluation({ livres = [] }) { 
-    const derniersLivres = livres.filter(his => his.evaluation >= 8).slice(-5);
+export default function TopRatedBooks({ livres = [] }) {
+  const topRatedBooks = livres.filter(book => book.evaluation >= 8).slice(-3);
 
-    if (derniersLivres.length === 0) {
-        return <h1>Aucun livre avec une évaluation supérieure à 8</h1>;
-    }
-
+  if (topRatedBooks.length === 0) {
     return (
-        <fieldset style={{ border: "2px solid #ff4081", padding: "20px", borderRadius: "10px", backgroundColor: "#121212", color: "white", textAlign: "right" }}>
-            <legend style={{ fontSize: "20px", fontWeight: "bold", color: "#ff4081", float: "right", padding: "0 10px" }}>📚 أروع الكتب</legend>
-            
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center', marginTop: "30px" }}>
-                {derniersLivres.map((livre) => (
-                    <div key={livre._id} style={{ width: '120px', border: '1px solid #ff4081', borderRadius: '10px', padding: '10px', textAlign: 'center', backgroundColor: "#1e1e1e" }}>
-                        <img src={livre.image} alt={livre.title} 
-                            style={{ width: '100px', height: '130px', objectFit: 'contain', borderRadius: '5px', backgroundColor: "white" }} 
-                        />
-                        <h1 style={{ fontSize: '12px', margin: '5px 0' }}>{livre.title}</h1>
-                        <p style={{ fontSize: '10px', color: '#bbb' }}>{livre.prix} €</p>
-                        <button style={{ backgroundColor: '#ff4081', color: 'white', border: 'none', padding: '5px', fontSize: "10px", borderRadius: '5px', cursor: 'pointer' }}>
-                            Ajouter au panier
-                        </button>
-                        <Link to={`/details/${livre.id}`} style={{ display: 'block', marginTop: '5px', fontSize: "10px", textDecoration: 'none', color: '#ff4081' }}>
-                            Voir les détails
-                        </Link>
-                    </div>
-                ))}
-            </div>
-        </fieldset>
+      <div className="no-books-message">
+        <h2>📚 لا توجد كتب بتقييم أعلى من 8</h2>
+      </div>
     );
-}
+  }
 
+  return (
+    <section className="premium-evaluation-section">
+      <div className="section-header">
+        <h2 className="section-heading">
+          <span className="section-title">📚 أروع الكتب</span>
+        </h2>
+      </div>
+
+      <div className="book-grid">
+        {topRatedBooks.map((livre) => (
+          <div className="novel-card" key={livre._id}>
+            <Link to={`/details/${livre.id}`} className="novel-link">
+              <div className="image-wrapper">
+                <img
+                  src={livre.image}
+                  alt={livre.title}
+                  className="novel-cover"
+                />
+                <div className="content-overlay">
+                  <div className="info-box">
+                    <h4>{livre.title}</h4>
+                    <div className="info-details">
+                      <span className="price-tag">{livre.prix} DH</span>
+                      <span className="rating-badge">⭐ {livre.evaluation}/10</span>
+                    </div>
+                  </div>
+                  <div className="map-icon-wrapper">
+                    <span className="map-icon" data-tooltip={`متوفر في: ${livre.location}`}>📍</span>
+                    <span className="location-text">{livre.library}</span>
+                  </div>
+
+                </div>
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
