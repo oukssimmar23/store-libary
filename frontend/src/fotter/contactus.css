@@ -1,0 +1,37 @@
+/* Container for the Contact Us page */
+.contactus-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Title for the Contact Us form */
+  .contactus-container h2 {
+    text-align: center;
+    color: #333;
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  
+  /* Embed iframe styling for Google Form */
+  .contactus-iframe {
+    width: 100%;
+    height: 700px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Optional padding for the iframe's parent div */
+  .contactus-iframe-container {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  

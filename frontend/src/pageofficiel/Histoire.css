@@ -1,0 +1,666 @@
+/* Global styles for the Arabic digital library */
+:root {
+  --primary-color: #8b4513;
+  --secondary-color: #d4a76a;
+  --accent-color: #f8b400;
+  --text-light: #f9f5eb;
+  --text-dark: #333;
+  --bg-light: #f9f5eb;
+  --bg-dark: #2c3e50;
+  --shadow-soft: rgba(0, 0, 0, 0.1);
+  --shadow-medium: rgba(0, 0, 0, 0.2);
+  --shadow-strong: rgba(0, 0, 0, 0.4);
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
+  --font-arabic: 'Noto Kufi Arabic', 'Amiri', sans-serif;
+}
+
+/* Global shared styles */
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.badge-vintage,
+.badge-new {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  margin-right: 10px;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+
+
+.badge-new {
+  background-color: var(--accent-color);
+  color: var(--text-dark);
+}
+
+.price-tag {
+  font-weight: 700;
+  color: var(--accent-color);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.section-title {
+  font-family: var(--font-arabic);
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+  text-align: right;
+  position: relative;
+  padding-bottom: 1rem;
+
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+
+}
+
+
+/* Histoire.css - Historical Books Section */
+.historical-page {
+  /* Replace external image with a CSS pattern */
+  background: linear-gradient(rgba(248, 240, 227, 0.7), rgba(248, 240, 227, 0.7)),
+              repeating-linear-gradient(45deg, rgba(139, 69, 19, 0.05) 0px, rgba(139, 69, 19, 0.05) 2px, transparent 2px, transparent 4px);
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.antique-section .container {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.antique-section .row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2.5rem;
+}
+
+.antique-card {
+  position: relative;
+  height: 100%;
+  perspective: 1000px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: transform var(--transition-speed);
+  box-shadow: 0 10px 30px var(--shadow-medium);
+}
+
+.antique-card:hover {
+  transform: translateY(-10px);
+}
+
+.antique-card .image-container {
+  position: relative;
+  overflow: hidden;
+  height: 400px;
+}
+
+.antique-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s;
+  filter: sepia(0.3);
+}
+
+.antique-card:hover .antique-image {
+  transform: scale(1.1);
+  filter: sepia(0.1);
+}
+
+.time-period {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(139, 69, 19, 0.9);
+  color: var(--text-light);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-family: var(--font-arabic);
+  font-size: 0.8rem;
+  z-index: 2;
+}
+
+.antique-card .content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 2rem 1.5rem;
+  color: var(--text-light);
+  transform: translateY(20px);
+  opacity: 0.9;
+  transition: all var(--transition-speed);
+}
+
+.antique-card:hover .content-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.antique-card .book-title {
+  margin-bottom: 1rem;
+  font-family: var(--font-arabic);
+  font-size: 1.4rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.antique-card .price-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.antique-card .stars {
+  display: flex;
+}
+
+.star-icon {
+  color: gold;
+  margin-left: 2px;
+}
+
+.antique-card .explore-btn {
+  background: var(--accent-color);
+  color: var(--text-dark);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-family: var(--font-arabic);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.antique-card .explore-btn:hover {
+  background: #e0a800;
+  transform: scale(1.05);
+}
+
+/* Livre.css - Modern Books Section */
+.books-page {
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.modern-books-section .container {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.books-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.modern-book-card {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 5px 15px var(--shadow-soft);
+  transition: all var(--transition-speed);
+  position: relative;
+  height: 380px;
+  background: white;
+}
+
+.modern-book-card:hover {
+  box-shadow: 0 15px 30px var(--shadow-medium);
+  transform: translateY(-10px);
+}
+
+.modern-book-card .image-wrapper {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s;
+}
+
+.modern-book-card:hover .book-cover {
+  transform: scale(1.05);
+}
+
+.modern-book-card .content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  padding: 1.5rem;
+  color: var(--text-light);
+  transform: translateY(20px);
+  opacity: 0.9;
+  transition: all var(--transition-speed);
+}
+
+.modern-book-card:hover .content-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modern-book-card .book-title {
+  font-family: var(--font-arabic);
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.modern-book-card .meta-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modern-book-card .actions {
+  display: flex;
+  align-items: center;
+}
+
+.modern-book-card .explore-btn {
+  background: var(--accent-color);
+  color: var(--text-dark);
+  border: none;
+  padding: 6px 15px;
+  border-radius: 25px;
+  font-family: var(--font-arabic);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.modern-book-card .explore-btn:hover {
+  background: #e0a800;
+  transform: scale(1.05);
+}
+
+/* Menu.css - Premium Books Section */
+.digital-library {
+  background-color: var(--bg-light);
+  background-image: linear-gradient(45deg, #e8e8e8 25%, transparent 25%), 
+                   linear-gradient(-45deg, #e8e8e8 25%, transparent 25%),
+                   linear-gradient(45deg, transparent 75%, #e8e8e8 75%),
+                   linear-gradient(-45deg, transparent 75%, #e8e8e8 75%);
+  background-size: 20px 20px;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.premium-book-section {
+  padding: 4rem 0;
+}
+
+.section-heading {
+  font-family: var(--font-arabic);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: var(--text-dark);
+}
+
+.with-underline {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.with-underline::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: var(--accent-color);
+}
+
+.premium-card {
+  border: none;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 25px var(--shadow-medium);
+  transition: all var(--transition-speed);
+  height: 400px;
+  background-color: transparent;
+}
+
+.premium-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 20px 40px var(--shadow-strong);
+}
+
+.image-wrapper {
+  position: relative;
+  height: 100%;
+}
+
+.premium-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s;
+}
+
+.premium-card:hover .premium-cover {
+  transform: scale(1.05);
+}
+
+.premium-card .content-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.2) 100%);
+  opacity: 0;
+  transition: opacity var(--transition-speed);
+  display: flex;
+  align-items: flex-end;
+}
+
+.premium-card:hover .content-overlay {
+  opacity: 1;
+}
+
+.premium-card .card-body {
+  width: 100%;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(248, 180, 0, 0.5);
+}
+
+.no-books-message {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px var(--shadow-soft);
+}
+
+.no-books-text {
+  color: #777;
+  margin-bottom: 2rem;
+  font-family: var(--font-arabic);
+}
+
+.explore-more-btn {
+  background: var(--accent-color);
+  color: var(--text-dark);
+  border: none;
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--font-arabic);
+}
+
+.explore-more-btn:hover {
+  background: #e0a800;
+  transform: scale(1.05);
+}
+
+/* Roman.css - Novels Section */
+.novel-library {
+  /* Replace external image with CSS pattern */
+  background-color: #f8f9fa;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+    repeating-linear-gradient(90deg, rgba(212, 167, 106, 0.1) 0px, rgba(212, 167, 106, 0.1) 1px, transparent 1px, transparent 30px),
+    repeating-linear-gradient(0deg, rgba(212, 167, 106, 0.1) 0px, rgba(212, 167, 106, 0.1) 1px, transparent 1px, transparent 30px);
+  min-height: 100vh;
+  direction: rtl;
+}
+
+.premium-novels-section .container {
+  padding: 3rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.novel-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.novel-card {
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 10px 20px var(--shadow-medium);
+  transition: all var(--transition-speed);
+  position: relative;
+  height: 420px;
+  background: white;
+}
+
+.novel-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--secondary-color) 0%, transparent 100%);
+  opacity: 0.1;
+  transition: opacity var(--transition-speed);
+  z-index: 1;
+}
+
+.novel-card:hover::before {
+  opacity: 0.2;
+}
+
+.novel-card:hover {
+  transform: translateY(-15px) rotateZ(2deg);
+  box-shadow: 0 20px 40px var(--shadow-strong);
+}
+
+.novel-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s;
+}
+
+.novel-card:hover .novel-cover {
+  transform: scale(1.08);
+}
+
+.novel-card .content-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+  padding: 2rem;
+  color: var(--text-light);
+  transform: translateY(30px);
+  opacity: 0;
+  transition: all var(--transition-speed);
+  z-index: 2;
+}
+
+.novel-card:hover .content-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.novel-card .book-title {
+  font-family: var(--font-arabic);
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.novel-card .price-and-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.novel-card .explore-btn {
+  background: var(--accent-color);
+  color: var(--text-dark);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-family: var(--font-arabic);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.novel-card .explore-btn:hover {
+  background: #e0a800;
+  transform: scale(1.05);
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1200px) {
+  .antique-section .row,
+  .books-list,
+  .novel-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .antique-section .row,
+  .books-list,
+  .novel-list {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .section-title,
+  .section-heading {
+    font-size: 1.8rem;
+  }
+  
+  .antique-card .image-container,
+  .modern-book-card,
+  .premium-card,
+  .novel-card {
+    height: 350px;
+  }
+  
+  .antique-card .book-title,
+  .modern-book-card .book-title,
+  .novel-card .book-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .antique-section .row,
+  .books-list,
+  .novel-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .antique-section .container,
+  .modern-books-section .container,
+  .premium-novels-section .container {
+    padding: 2rem 1rem;
+  }
+  
+  .antique-card .explore-btn,
+  .modern-book-card .explore-btn,
+  .novel-card .explore-btn {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-header,
+.antique-card,
+.modern-book-card,
+.premium-card,
+.novel-card {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.antique-card:nth-child(2),
+.modern-book-card:nth-child(2),
+.premium-card:nth-child(2),
+.novel-card:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.antique-card:nth-child(3),
+.modern-book-card:nth-child(3),
+.premium-card:nth-child(3),
+.novel-card:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+.antique-card:nth-child(4),
+.modern-book-card:nth-child(4),
+.premium-card:nth-child(4),
+.novel-card:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* Custom scrollbar for the entire site */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}

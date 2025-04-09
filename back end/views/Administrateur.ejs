@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>لوحة التحكم - المكتبة</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 250px;
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            padding: 0.5rem 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary-color);
+        }
+
+        .main-content {
+            margin-right: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .recent-activity {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .activity-info h4 {
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 1rem 0;
+            }
+
+            .sidebar-header h2,
+            .sidebar-menu span {
+                display: none;
+            }
+
+            .main-content {
+                margin-right: 70px;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>المكتبة</h2>
+            <p>لوحة التحكم</p>
+        </div>
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#" class="active">
+                    <i class="fas fa-home"></i>
+                    <span>الرئيسية</span>
+                </a>
+            </li>
+            <li>
+                <a href="/showlivre">
+                    <i class="fas fa-book"></i>
+                    <span>الكتب</span>
+                </a>
+            </li>
+            <li>
+                <a href="/showcommande">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span>الطلبات</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/users">
+                    <i class="fas fa-users"></i>
+                    <span>المستخدمين</span>
+                </a>
+            </li>
+            <li>
+                <a href="/admin/settings">
+                    <i class="fas fa-cog"></i>
+                    <span>الإعدادات</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1>مرحباً بك في لوحة التحكم</h1>
+            <div class="user-info">
+                <img src="https://via.placeholder.com/40" alt="Admin">
+                <span>المدير</span>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    تسجيل الخروج
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--primary-color)">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= alllivres ? alllivres.length : 0 %></h3>
+                    <p>إجمالي الكتب</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--secondary-color)">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= allcommandes ? allcommandes.length : 0 %></h3>
+                    <p>الطلبات الجديدة</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--warning-color)">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= allusers ? allusers.length : 0 %></h3>
+                    <p>المستخدمين</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--danger-color)">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>
+                        <% 
+                        if (allcommandes && allcommandes.length > 0) {
+                            const totalRevenue = allcommandes.reduce((sum, commande) => sum + commande.total, 0);
+                        %>
+                            <%= totalRevenue %> DH
+                        <% } else { %>
+                            0 DH
+                        <% } %>
+                    </h3>
+                    <p>الإيرادات</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid">
+            <div class="chart-card">
+                <h3>مبيعات الكتب</h3>
+                <canvas id="salesChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>توزيع الفئات</h3>
+                <canvas id="categoriesChart"></canvas>
+            </div>
+        </div>
+
+        <div class="recent-activity">
+            <h3>النشاطات الأخيرة</h3>
+            <ul class="activity-list">
+                <% if (allcommandes && allcommandes.length > 0) { %>
+                    <% const recentCommandes = allcommandes.slice(0, 3); %>
+                    <% for(let commande of recentCommandes) { %>
+                        <li class="activity-item">
+                            <div class="activity-icon" style="background: var(--secondary-color)">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="activity-info">
+                                <h4>طلب جديد</h4>
+                                <p>قبل <%= new Date(commande.dateCommande).toLocaleString("ar-MA") %></p>
+                            </div>
+                        </li>
+                    <% } %>
+                <% } else { %>
+                    <li class="activity-item">
+                        <div class="activity-icon" style="background: var(--warning-color)">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="activity-info">
+                            <h4>لا توجد نشاطات حديثة</h4>
+                            <p>لم يتم العثور على أي طلبات</p>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Données pour le graphique des ventes
+        const monthlySales = [0, 0, 0, 0, 0, 0];
+        <% if (allcommandes) { %>
+            <% allcommandes.forEach(commande => { %>
+                <% const month = new Date(commande.dateCommande).getMonth(); %>
+                <% if (month >= 0 && month < 6) { %>
+                    monthlySales[<%= month %>]++;
+                <% } %>
+            <% }); %>
+        <% } %>
+
+        // Données pour le graphique des catégories
+        const categoryLabels = [];
+        const categoryData = [];
+        
+        <% if (alllivres) { %>
+            <% const categories = [...new Set(alllivres.map(livre => livre.categorie))]; %>
+            <% categories.forEach(category => { %>
+                categoryLabels.push('<%= category %>');
+                categoryData.push(<%= alllivres.filter(livre => livre.categorie === category).length %>);
+            <% }); %>
+    <% } %>
+
+        // Graphique des ventes
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                datasets: [{
+                    label: 'المبيعات',
+                    data: monthlySales,
+                    borderColor: '#3498db',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Graphique des catégories
+        const categoriesCtx = document.getElementById('categoriesChart').getContext('2d');
+        new Chart(categoriesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: categoryLabels,
+                datasets: [{
+                    data: categoryData,
+                    backgroundColor: [
+                        '#3498db',
+                        '#2ecc71',
+                        '#f1c40f',
+                        '#e74c3c',
+                        '#9b59b6'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            }
+        });
+
+        // Fonction de déconnexion
+        function logout() {
+            if (confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                window.location.href = '/login';
+            }
+        }
+    </script>
+</body>
+</html>
+
+

@@ -1,0 +1,640 @@
+/* Base et typographie */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap');
+
+.details-page {
+  font-family: 'Cairo', sans-serif;
+  background: linear-gradient(135deg, #f2f5f9, #e6eef8);
+  padding-top: 3rem;
+  min-height: 100vh;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.details-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.07) 0%, transparent 40%),
+              radial-gradient(circle at 80% 70%, rgba(79, 70, 229, 0.05) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Container principal avec perspective */
+.details-container {
+  max-width: 1300px;
+  margin: 0 auto 4rem;
+  padding: 0;
+  perspective: 2000px;
+}
+
+/* Animation d'entrée */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotateX(2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+  }
+}
+
+/* Carte de détails avec design moderne */
+.detail-card {
+  display: flex;
+  flex-direction: row;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12),
+              0 10px 30px -10px rgba(139, 92, 246, 0.2);
+  animation: fadeInUp 0.8s ease-out forwards;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), 
+              box-shadow 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.detail-card:hover {
+  transform: translateY(-15px) rotateX(2deg);
+  box-shadow: 0 30px 70px -10px rgba(0, 0, 0, 0.2),
+              0 20px 60px -10px rgba(139, 92, 246, 0.3);
+}
+
+/* Section image avec effets 3D */
+.image-wrapper {
+  position: relative;
+  padding-top: 100%;
+  overflow: hidden;
+border-radius: 12px;
+box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+background: #fff;
+}
+
+.image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(54, 21, 120, 0.25));
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.detail-card:hover .image-wrapper::before {
+  opacity: 1;
+}
+
+.detail-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px 0 0 30px;
+  transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+  filter: contrast(1.05) brightness(1.05);
+}
+
+.detail-card:hover .detail-image {
+  transform: scale(1.08) translateZ(10px);
+}
+
+.badge-best-seller {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: linear-gradient(135deg, #8b5cf6, #6d33cc);
+  color: white;
+  padding: 10px 18px;
+  font-size: 1rem;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(109, 51, 204, 0.4);
+  z-index: 2;
+  transform: translateZ(30px);
+  transition: all 0.4s ease;
+}
+
+.detail-card:hover .badge-best-seller {
+  transform: translateZ(40px) scale(1.08);
+  box-shadow: 0 12px 25px rgba(109, 51, 204, 0.5);
+}
+
+/* Contenu avec effets de profondeur */
+.detail-content {
+  padding: 3.5rem;
+  flex: 1.2;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(250, 250, 255, 0.85));
+  border-radius: 0 30px 30px 0;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.detail-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0; 
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 70% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 60%);
+  z-index: -1;
+}
+
+/* Titre avec animation et effet de texte */
+.detail-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #2d3748;
+  margin-bottom: 1.8rem;
+  position: relative;
+  letter-spacing: -0.5px;
+  text-transform: capitalize;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.detail-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #8b5cf6, transparent);
+  border-radius: 2px;
+  transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.detail-card:hover .detail-title::after {
+  width: 120px;
+}
+
+/* Métadonnées avec effets scintillants */
+.detail-meta {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.detail-badge {
+  background: linear-gradient(135deg, #8b5cf6, #6d33cc);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(109, 51, 204, 0.15);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  transform: translateZ(5px);
+}
+
+.detail-badge:hover {
+  transform: translateZ(15px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(109, 51, 204, 0.3);
+}
+
+.detail-badge::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  animation: shimmer 3s infinite;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+/* Prix avec animation */
+.detail-pricing {
+  margin-bottom: 2.5rem;
+  position: relative;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(243, 244, 255, 0.5));
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: all 0.4s ease;
+  transform: translateZ(5px);
+}
+
+.detail-card:hover .detail-pricing {
+  transform: translateZ(15px);
+  box-shadow: 0 15px 40px -15px rgba(0, 0, 0, 0.1);
+}
+
+.price {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #6d33cc;
+  text-shadow: 0 2px 10px rgba(109, 51, 204, 0.2);
+  letter-spacing: -1px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.price::first-letter {
+  font-size: 3.2rem;
+}
+
+.tax-included {
+  color: #64748b;
+  font-size: 1rem;
+  display: inline-block;
+  margin-top: 5px;
+  font-weight: 500;
+  position: relative;
+  padding-left: 20px;
+}
+
+.tax-included::before {
+  content: '✓';
+  color: #10b981;
+  position: absolute;
+  left: 0;
+  font-weight: 700;
+}
+
+/* Contrôle de quantité modernisé */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 10px 20px;
+  border-radius: 50px;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.quantity-btn {
+  background: linear-gradient(135deg, #8b5cf6, #6d33cc);
+  border: none;
+  color: white;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 5px 15px rgba(109, 51, 204, 0.3);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.quantity-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.quantity-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(109, 51, 204, 0.4);
+}
+
+.quantity-btn:hover::after {
+  opacity: 1;
+}
+
+.quantity-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(109, 51, 204, 0.2);
+}
+
+.quantity-display {
+  font-size: 2rem;
+  margin: 0 20px;
+  font-weight: 700;
+  color: #2d3748;
+  min-width: 50px;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Bouton d'ajout au panier avec animation avancée */
+.add-to-cart-btn {
+  position: relative;
+  background: linear-gradient(135deg, #8b5cf6, #6d33cc);
+  border: none;
+  color: white;
+  padding: 18px 36px;
+  border-radius: 50px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 15px 35px rgba(109, 51, 204, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.add-to-cart-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.7s ease;
+  z-index: -1;
+}
+
+.add-to-cart-btn:hover {
+  transform: translateY(-7px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(109, 51, 204, 0.4);
+}
+
+.add-to-cart-btn:hover::before {
+  left: 100%;
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(109, 51, 204, 0.3);
+}
+
+/* Section des spécifications avec design card */
+.specs-section {
+  margin: 3rem 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.8));
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  position: relative;
+  transition: all 0.4s ease;
+  transform: translateZ(5px);
+  overflow: hidden;
+}
+
+.specs-section h5 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.specs-section h5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6, transparent);
+  border-radius: 3px;
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.specs p {
+  font-size: 1.1rem;
+  color: #4b5563;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 10px;
+  transition: all 0.3s ease;
+}
+
+.specs p:hover {
+  transform: translateX(5px);
+  color: #2d3748;
+}
+
+.specs p::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 4px;
+  height: 4px;
+  background-color: #8b5cf6;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.specs strong {
+  color: #6d33cc;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+/* Description avec design élégant */
+.detail-description {
+  margin-top: 3rem;
+  position: relative;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.8));
+  border-radius: 20px;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  transition: all 0.4s ease;
+  transform: translateZ(5px);
+}
+
+.detail-description h5 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.detail-description h5::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #8b5cf6, transparent);
+  border-radius: 3px;
+}
+
+.description-text {
+  color: #4b5563;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  position: relative;
+  text-align: justify;
+  padding-left: 20px;
+  border-left: 3px solid rgba(139, 92, 246, 0.3);
+}
+
+/* Message d'erreur stylisé */
+.error-message {
+  text-align: center;
+  margin: 6rem auto;
+  max-width: 600px;
+  padding: 3rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(253, 242, 242, 0.9));
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.error-message h2 {
+  color: #dc2626;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(239, 68, 68, 0.1);
+}
+
+/* Animations supplémentaires */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Adaptation mobile */
+@media (max-width: 1024px) {
+  .detail-card {
+    flex-direction: column;
+  }
+  
+  .detail-image {
+    border-radius: 30px 30px 0 0;
+    max-height: 400px;
+  }
+  
+  .detail-content {
+    border-radius: 0 0 30px 30px;
+  }
+  
+  .specs {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .details-container {
+    padding: 1rem;
+  }
+  
+  .detail-content {
+    padding: 2rem;
+  }
+  
+  .detail-title {
+    font-size: 2.2rem;
+  }
+  
+  .price {
+    font-size: 2.5rem;
+  }
+}
+
+/* Fix for image positioning */
+.detail-image {
+  transform: none;
+  height: 100%;
+  object-position: center;
+}
+
+.detail-card:hover .detail-image {
+  transform: scale(1.08);
+}
+
+/* Fix for right-to-left text alignment */
+.detail-title, .detail-description, .specs p {
+  text-align: right;
+}
+
+.specs p {
+  padding-left: 0;
+  padding-right: 10px;
+}
+
+.specs p::before {
+  left: auto;
+  right: 0;
+}
+
+.specs p:hover {
+  transform: translateX(-5px);
+}
+
+.description-text {
+  padding-left: 0;
+  padding-right: 20px;
+  border-left: none;
+  border-right: 3px solid rgba(139, 92, 246, 0.3);
+}
+
+/* Animation de notification pour l'ajout au panier */
+@keyframes addedToCart {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.cart-notification {
+  position: fixed;
+  top: 30px;
+  right: 30px;
+  background: linear-gradient(135deg, #8b5cf6, #6d33cc);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  animation: addedToCart 0.5s ease, fadeInUp 0.5s ease;
+  z-index: 1000;
+}

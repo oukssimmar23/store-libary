@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>إدارة المستخدمين - المكتبة</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .header {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .header-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .header-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 2;
+            width: 80%;
+        }
+
+        .header-content h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .stat-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .users-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background-color: var(--dark-color);
+            color: white;
+            border: none;
+            padding: 1rem;
+            font-weight: 500;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        .table td {
+            padding: 1rem;
+            vertical-align: middle;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .btn {
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 0 0.25rem;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border: none;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            border: none;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-weight: 500;
+        }
+
+        .badge-success {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #777;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .search-bar {
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+            outline: none;
+        }
+
+        .search-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .add-user-button {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-user-button:hover {
+            background: #27ae60;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                height: 200px;
+            }
+
+            .header-content h1 {
+                font-size: 2rem;
+            }
+
+            .table-responsive {
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .search-bar {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Users" class="header-image">
+        <div class="header-content">
+            <h1>إدارة المستخدمين</h1>
+            <p>عرض وإدارة جميع المستخدمين في النظام</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--primary-color)">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= allusers ? allusers.length : 0 %></h3>
+                    <p>إجمالي المستخدمين</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--secondary-color)">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= allusers ? allusers.filter(user => user.status === 'active').length : 0 %></h3>
+                    <p>المستخدمين النشطين</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--warning-color)">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= allusers ? allusers.filter(user => user.status === 'pending').length : 0 %></h3>
+                    <p>المستخدمين المعلقين</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: var(--danger-color)">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><%= allusers ? allusers.filter(user => user.status === 'inactive').length : 0 %></h3>
+                    <p>المستخدمين غير النشطين</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="البحث عن مستخدم..." id="searchInput">
+            <button class="search-button">
+                <i class="fas fa-search"></i>
+                بحث
+            </button>
+            <button class="add-user-button" onclick="addUser()">
+                <i class="fas fa-user-plus"></i>
+                إضافة مستخدم جديد
+            </button>
+        </div>
+
+        <div class="users-table">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>الإجراءات</th>
+                            <th>الحالة</th>
+                            <th>البريد الإلكتروني</th>
+                            <th>الاسم</th>
+                            <th>الصورة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (allusers && allusers.length > 0) { %>
+                            <% for(let user of allusers) { %>
+                            <tr>
+                                <td class="action-buttons">
+                                    <button class="btn btn-danger btn-sm" onclick="deleteUser('<%= user._id %>')">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                    <button class="btn btn-warning btn-sm" onclick="editUser('<%= user._id %>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <% if (user.status === 'active') { %>
+                                        <span class="badge badge-success">نشط</span>
+                                    <% } else if (user.status === 'pending') { %>
+                                        <span class="badge badge-warning">معلق</span>
+                                    <% } else { %>
+                                        <span class="badge badge-danger">غير نشط</span>
+                                    <% } %>
+                                </td>
+                                <td><%= user.email %></td>
+                                <td><%= user.nom || 'غير محدد' %> <%= user.prenom || 'غير محدد' %></td>
+                                    
+                                <td>
+                                    <img src="<%= user.avatar || 'https://via.placeholder.com/40' %>" alt="User Avatar" class="user-avatar">
+                                </td>
+                            </tr>
+                            <% } %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-users"></i>
+                                    <h3>لا يوجد مستخدمين</h3>
+                                    <p>لم يتم العثور على أي مستخدمين في النظام</p>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fonction de recherche
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchValue = this.value.toLowerCase();
+            const tableRows = document.querySelectorAll('tbody tr');
+            
+            tableRows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchValue)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Fonction pour ajouter un utilisateur
+        function addUser() {
+            const name = prompt('أدخل اسم المستخدم:');
+            const email = prompt('أدخل البريد الإلكتروني:');
+            const password = prompt('أدخل كلمة المرور:');
+            
+            if (name && email && password) {
+                // Ici, vous pouvez ajouter le code pour envoyer les données au serveur
+                alert('تم إضافة المستخدم بنجاح!');
+                location.reload();
+            }
+        }
+
+        // Fonction pour supprimer un utilisateur
+        function deleteUser(id) {
+            if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
+                // Ici, vous pouvez ajouter le code pour envoyer la demande de suppression au serveur
+                alert('تم حذف المستخدم بنجاح!');
+                location.reload();
+            }
+        }
+
+        // Fonction pour modifier un utilisateur
+        function editUser(id) {
+            const name = prompt('أدخل الاسم الجديد:');
+            const email = prompt('أدخل البريد الإلكتروني الجديد:');
+            
+            if (name && email) {
+                // Ici, vous pouvez ajouter le code pour envoyer les données de modification au serveur
+                alert('تم تعديل المستخدم بنجاح!');
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html> 
